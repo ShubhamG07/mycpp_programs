@@ -1,0 +1,31 @@
+//CPP Program to return all the Subsequences of a Given String
+
+//Our Code starts from here 
+
+#include <iostream>
+#include<bits/stdc++.h>
+using namespace std;
+
+int subs(string input, string output[]){
+    if(input.empty()){
+        return 1;
+    }
+    string smallsubstring=input.substr(1);
+    int smalloutput=subs(smallsubstring,output);
+    for(int i=0;i<smalloutput;i++){
+        output[i+smalloutput]=input[0]+output[i];
+    }
+    return smalloutput*2;
+}
+
+int main() {
+    string str;
+    cin>>str;
+    int size=pow(2,str.size());
+    string *output=new string[size];
+    int count= subs(str,output);
+    for(int i=0;i<count;i++){
+        cout<<output[i]<<endl;
+    }
+}
+//our code ends here
