@@ -1,0 +1,124 @@
+//Function to delete a node at ith position from linked list and inserting a node at ith position in Linked List
+//Function to take input in a linked list
+//Function to print a link list
+
+//Our Code starts from here
+
+#include <iostream>
+using namespace std;
+
+//Creating Node Class
+class Node {
+    public:
+    int data;
+    Node *next;
+    
+//Creating Parametrised constructor for our node
+    Node(int n){
+     data=n;
+     next=NULL;
+    }
+};
+
+//Function to insert a node at ith position
+Node* insertnode(Node *head, int i, int data){
+    int count =0;
+    Node *temp=head;
+    Node *newnode=new Node(data);
+    if(i==0){
+        newnode->next=head;
+        head=newnode;
+        return head;
+    }
+    while(temp!=NULL && count<i-1){
+        temp=temp->next;
+        count++;
+    }
+    if(temp!=NULL){
+        Node*a=temp->next;
+        newnode->next=a;
+        temp->next=newnode;
+    }
+    return head;
+}
+
+
+//Function to delete a node at ith position
+Node *deleteNode(Node *head, int pos) {
+  int count = 0;
+  Node *temp = head;
+  if (temp == NULL || temp->next == NULL) {
+    return head;
+  }
+  if (head == NULL || pos < 0) {
+    return head;
+  }
+  if (pos == 0) {
+    head = head->next;
+    delete temp;
+    return head;
+  }
+  while (temp != NULL && count < pos - 1) {
+    temp = temp->next;
+    count++;
+  }
+
+  if (temp!=NULL && temp->next!= NULL) {
+    Node *a = temp->next;
+    Node *b = a->next;
+    temp->next = b;
+    delete a;
+  }
+
+  return head;
+}
+
+//Function to take input in a linked list
+Node* takeinput(){
+    int data;
+    cin>>data;
+    Node *head =NULL;
+    Node *tail =NULL;
+    //Creating terminating point for entring our node
+    while(data != -1){
+        Node *newNode = new Node(data);
+        if(head==NULL){
+            head=newNode;
+            tail=newNode;
+        }
+        else{
+            tail->next=newNode;
+            tail=newNode;
+        }
+        cin>>data;
+    }
+    return head;
+}
+
+//Function to print a linked list
+void print(Node *head){
+    Node *temp=head;
+    while(temp!=NULL){
+        cout<<temp->data<<" ";
+        temp=temp->next;
+    }
+    cout<<endl;
+    
+}
+
+
+//Our main function starts from here    
+int main() {
+    Node *head = takeinput();
+    print(head);
+    int i,j,data;
+    cin>>i;
+    cin>>data;
+    insertnode(head,i,data);
+    print(head);
+    cin>>j;
+deleteNode(head,j);
+print(head);
+    return 0;
+}
+//Our code Ends here
