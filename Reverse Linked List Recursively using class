@@ -1,0 +1,29 @@
+//Given a singly linked list of integers, reverse it using recursion and return the head to the modified list. You have to do this in O(N) time complexity where N is the size of the linked list.
+
+//Our Code Starts From Here
+class Pair{
+    public:
+    Node*head;
+    Node*tail;
+};
+Pair helpinfunction(Node*head){
+    if (head==NULL||head->next==NULL){
+        Pair ans;
+        ans.head=head;
+        ans.tail=head;
+        return ans;
+    }
+Pair smallans=helpinfunction(head->next);
+smallans.tail->next=head;
+head->next=NULL;
+Pair ans;
+ans.head=smallans.head;
+ans.tail=head;
+return ans;
+}
+
+Node *reverseLinkedListRec(Node *head)
+{
+  return helpinfunction(head).head ;
+}
+//Our Code Ends Here
