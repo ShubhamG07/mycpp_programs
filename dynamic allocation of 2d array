@@ -1,0 +1,42 @@
+#include <iostream>
+using namespace std ;
+
+int main() {
+    int m,n;
+    cout<<"Enter No. of Rows :";
+    cin>>m;
+    cout<<endl;
+    cout<<"Enter No. of Columns :";
+    cin>>n;
+    cout<<endl;
+    int **a= new int*[m];
+    for(int i=0;i<m;i++){
+        a[i]=new int[n];
+        for(int j=0;j<n;j++){
+            cin>>a[i][j];
+        }
+        cout<<endl;
+    }
+    for(int i=0;i<m;i++){
+        for(int j=0;j<n;j++){
+            cout<<&a[i][j]<<"  ";
+        }
+        cout<<endl;
+    }
+   for(int i=0;i<m;i++){
+        for(int j=0;j<n;j++){
+            cout<<a[i][j]<<"  ";
+        }
+        cout<<endl;
+    }
+    for(int i=0;i<n;i++){
+        delete []a[i];
+    }
+    delete []a;
+     for(int i=0;i<m;i++){
+        for(int j=0;j<n;j++){
+            cout<<&a[i][j]<<"  ";
+        }
+        cout<<endl;
+    }
+}
