@@ -1,0 +1,23 @@
+
+int helperbsearch(int inp[],int element, int first, int last){
+int mid= (first+last)/2;
+   if(first>last){
+       return -1;
+   }
+  else  if(inp[mid]==element){
+       return mid;
+   }
+  if(inp[mid]>element){
+      helperbsearch(inp, element, first, mid-1);
+  }
+  else{
+      helperbsearch(inp, element, mid+1,last);
+  }
+}
+int binarySearch(int input[], int size, int element) {
+   
+
+
+   helperbsearch(input,element,0,size-1);
+
+}
