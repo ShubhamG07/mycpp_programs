@@ -1,0 +1,51 @@
+#include <iostream>
+using namespace std;
+
+class fraction{
+  private:
+  int numerator;
+  int denominator;
+  public:
+  fraction(int n, int d){
+      numerator=n;
+      denominator=d;
+  }
+  void print(){
+      cout<<numerator<<"/"<<denominator<<endl;;
+  }
+ void simplify(){
+      int gcd=1;
+      int j=min(numerator, denominator);
+      for(int i=2;i<=j;i++){
+          if(numerator%i==0 && denominator%i==0){
+              gcd=i;
+          }
+      }
+      numerator=numerator/gcd;
+      denominator=denominator/gcd;
+  }
+   void add(fraction const &f2){
+      denominator=denominator + f2.denominator;
+      numerator= (numerator*f2.denominator) + (f2.numerator*denominator);
+      simplify();
+  }
+   void multiply(fraction const &f2){
+      denominator=denominator * f2.denominator;
+      numerator= numerator*f2.numerator ;
+      simplify();
+  }
+};
+
+int main() {
+    fraction f1(5,9);
+    fraction f2(8,7);
+    f1.print();
+    f2.print();
+    f1.add(f2);
+    f1.print();
+    f2.print();
+    f1.multiply(f2);
+     f1.print();
+    f2.print();
+    
+}
