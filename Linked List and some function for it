@@ -47,8 +47,6 @@ void print(node *head){
     cout<<endl;
 }
 
-//Function to calculate length of linked list 
-
 int length(node *head){
     node *temp=head;
     int count=0;
@@ -74,7 +72,6 @@ void printindex(node*head,int i){
     }
     cout<<temp->data;
 }
-
 //Function to insert node at index i
 
 node* insertatindex(node *head, int data, int i){
@@ -139,6 +136,25 @@ node* deleteatindex(node *head,int i){
     return head;
 }
 
+//Function to delete a node recursively
+
+node* deletenode_rec(node*head, int i){
+    if(head==NULL||i<0 ||i>length(head)){
+        return head;
+    }
+    if(i==0){
+        node* newhead=head->next;
+        delete head;
+        return newhead;
+    }
+    node *newhead=deletenode_rec(head->next,i-1);
+     if(i!=0){
+        head->next=newhead;
+        return head;
+    }
+    
+}
+
 //Main function
 
 int main() {
@@ -156,5 +172,9 @@ int main() {
    int a,newdata;
    cin>>a>>newdata;
    head=insertatindex_recursively(head,newdata,a);
+   print(head);
+   int b;
+   cin>>b;
+   head=deletenode_rec(head,b);
    print(head);
 }
