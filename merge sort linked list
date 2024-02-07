@@ -1,0 +1,108 @@
+
+#include <iostream>
+using namespace std;
+
+//Node Class
+
+class node{
+    public:
+    int data;
+    node*next;
+    node(int data){
+        this->data=data;
+        next=NULL;
+    }
+};
+
+//helper function for merge sort of our linked list
+
+node*mergehelper(node* firsttomid, node* nexttomid){
+    node* res=NULL;
+    if(firsttomid==NULL){
+        return nexttomid;
+    }
+    else if(nexttomid==NULL){
+        return firsttomid;
+    }
+    if(firsttomid->data<=nexttomid->data){
+        res=firsttomid;
+        res->next=mergehelper(firsttomid->next,nexttomid);
+    }
+    else{
+        res=nexttomid;
+        res->next=mergehelper(firsttomid,nexttomid->next);
+    }
+    return res;
+}
+
+//split function for merge sort
+
+void split(node* head, node** firstmid, node** nextmid){
+    node*slow=head;
+    node*fast=head->next;
+    while(fast!=NULL && fast->next!=NULL){
+        slow=slow->next;
+        fast=fast->next->next;
+    }
+    *firstmid=head;
+    *nextmid=slow->next;
+    slow->next=NULL;
+}
+
+//merge sort function for linked list
+
+node* mergesort(node*head){
+    node*temp=head;
+    node*a;
+    node*b;
+    if(head==NULL||head->next==NULL){
+        return head;
+    }
+    split(temp,&a,&b);
+    
+    a=mergesort(a);
+    b=mergesort(b);
+    node *newhead=mergehelper(a,b);
+    return newhead;
+}
+
+//takeinput funtion for taking input of our linked list(stops if input=-1)
+node* takeinput(){
+    int n;
+    cin>>n;
+    node* head=NULL;
+    node* tail =NULL;
+    while(n!=-1){
+        node *newnode=new node(n);
+        if(head==NULL){
+            head=newnode;
+            tail=newnode;
+        }
+        else{
+            tail->next=newnode;
+            tail=newnode;
+        }
+        cin>>n;
+    }
+    return head;
+}
+
+//print function for printing our linked list
+
+void print(node* head){
+    node* temp= head;
+    while(temp!=NULL){
+        cout<<temp->data<<" ";
+        temp=temp->next;
+    }
+    cout<<endl;
+}
+
+//Main Function
+
+int main() {
+    node *head=takeinput();
+    print(head);
+    head =mergesort(head);
+    print(head);
+}
